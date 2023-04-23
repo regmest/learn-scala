@@ -1,26 +1,27 @@
+package book
 
 object VendingMachine {
-    def main(args: Array[String]): Unit = {
+  def main(args: Array[String]): Unit = {
 
-      val myMachine = new VendingMachine
+    val myMachine = new VendingMachine
 
-      // Initial state
-      println(myMachine.chocolateBar)   // 0
-      println(myMachine.granolaBar)     // 0
+    // Initial state
+    println(myMachine.chocolateBar) // 0
+    println(myMachine.granolaBar) // 0
 
-      // Add some bars to the machine
-      myMachine.chocolateBar += 2
-      println(myMachine.chocolateBar)   // 2
+    // Add some bars to the machine
+    myMachine.chocolateBar += 2
+    println(myMachine.chocolateBar) // 2
 
-      // Shopping
-      println(myMachine.buy("chocolate bar", 1))    // Not enough money.
-      println(myMachine.buy("granola bar", 1.0))    // The granola bar is not available now.
-      println(myMachine.buy("chocolate bar", 2.0))  // Your request completed! Enjoy your chocolate bar.
+    // Shopping
+    println(myMachine.buy("chocolate bar", 1)) // Not enough money.
+    println(myMachine.buy("granola bar", 1.0)) // The granola bar is not available now.
+    println(myMachine.buy("chocolate bar", 2.0)) // Your request completed! Enjoy your chocolate bar.
 
-      // Earnings
-      println(myMachine.totalMoney)     // 2.0
+    // Earnings
+    println(myMachine.totalMoney) // 2.0
 
-    }
+  }
 
   class VendingMachine {
 

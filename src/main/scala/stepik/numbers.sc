@@ -18,7 +18,7 @@ import scala.math.BigDecimal.RoundingMode.HALF_UP
 
 1000000000000000000L * 1000000000000000000L // ошибка переполнения
 // BigInt помогает избежать проблем с переполнением;
-// результат операции, межжду Int и BigInt = BigInt
+// результат операции, между Int и BigInt = BigInt
 val a = BigInt(1000000000000000000L) * 1000000000000000000L
 a.gcd(55) // наибольшый общий делитель
 a.toString(16) // это число в 16-ричной системе счисления
@@ -33,16 +33,10 @@ val x = 2.0
 x + 2 // results in Double
 // x + a // error ! BigInt работает только с Int
 
-val d = BigDecimal(10.0)
-d.setScale(5, HALF_UP)
-val c = BigInt(3)
-for (i <- c.toString(2)) {
-  println(s"i type is ${i.getClass}")
-
-  println(i == '1')
-  println(1.toChar)
-
-}
+val d = BigDecimal(10.0) // 10.0
+d.setScale(5, HALF_UP)   // 10.00000
 
 5.toBinaryString
-(5 >> 1).toBinaryString
+
+
+'1' == "1"
