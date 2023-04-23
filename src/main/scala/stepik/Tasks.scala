@@ -56,5 +56,4 @@ object Tasks {
       s.slice(0, startIndex) + s.slice(startIndex, endIndex + 1).reverse + s.slice(endIndex + 1, s.length)
     }
 
-
 }
