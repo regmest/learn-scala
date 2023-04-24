@@ -46,26 +46,3 @@ val s = "123456789"
 s.slice(2, 6)          // 3456
 s.slice(2, 6).reverse  // 6543
 
-def sumRange(from: Int, to: Int): Int =
-  if (to < from) 0
-  else from + sumRange(from + 1, to)
-
-@tailrec
-def sumRange1(from: Int, to: Int, acc: Long = 0): Long =
-  if (to < from) acc
-  else sumRange1(from + 1, to, acc + from)
-sumRange1(1,10000000)
-
-// 0, 1, 1, 2, 3, 5, 8 ..
-@tailrec
-def calcFib(endIndex: Int, currIndex: Int = 1, prevValue: Int = 0, currValue: Int = 1): Int = {
-  if (endIndex == 1) 1
-  else if (currIndex == endIndex) currValue
-  else calcFib(endIndex, currIndex + 1, currValue, prevValue + currValue)
-}
-
-calcFib(1)
-calcFib(2)
-calcFib(3)
-calcFib(4)
-calcFib(5)

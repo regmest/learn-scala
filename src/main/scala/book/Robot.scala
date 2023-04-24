@@ -1,5 +1,9 @@
 package book
 
+/**
+ * companion object/class
+ */
+
 //object Main extends App {
 //
 //  val tom = new Robot("Tom") {

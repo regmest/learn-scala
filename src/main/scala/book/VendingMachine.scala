@@ -1,5 +1,9 @@
 package book
 
+/**
+ * classes & methods
+ */
+
 object VendingMachine {
   def main(args: Array[String]): Unit = {
 

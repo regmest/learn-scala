@@ -94,7 +94,6 @@ object Tasks {
       }
       calcFib(endIndex)
     }
-
     def fibs(index: Int): Int = { // решение из комментариев
       if (index == 0) 0
       else if (index == 1 || index == 2) 1

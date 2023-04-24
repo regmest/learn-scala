@@ -1,10 +1,16 @@
 package book
 
+/*
+ * public, private, protected
+ */
+
+
 object Party {
 
   def main(args: Array[String]): Unit = {
 
-    val party = new Party
+    val party = new Party("Abby's Birthday!")
+    println(party.name)                // Abby's Birthday!
     println(party.public_attendees)    // 0
     // party.private_attendees         // cannot be accessed
 
@@ -15,10 +21,9 @@ object Party {
     protected def estimateCosts(attendees: Int): Double = {  //  protected element is accessible from its class and subclasses
       if (attendees < 10) 50.00 else attendees * 12.34
     }
-
   }
 
-  class Party extends Event {
+  class Party(val name: String) extends Event { // name is publicly accessible
 
     var public_attendees = 0  // default access level - public, accessible everywhere
     private var private_attendees = 0  // private access level, accessible nowhere, but inside its class

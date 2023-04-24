@@ -1,5 +1,9 @@
 package book
 
+/**
+ * apply method
+ */
+
 object Main extends App {
 
   val tom = new Person("Tom", 30)
