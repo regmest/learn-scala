@@ -3,7 +3,7 @@ import org.scalameter.api._
 import stepik.Tasks
 
 
-class TEST extends Bench.OfflineReport {
+class BchTest extends Bench.OfflineReport {
   //  Tasks.fibs(10)
 
 
