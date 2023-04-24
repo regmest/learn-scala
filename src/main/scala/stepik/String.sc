@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 
 val name = "Oleg"
 name + "!!!" // concatenation
@@ -41,10 +42,30 @@ regexpPattern.findFirstIn(x)    // Some(99)
 "(.)\\1\\1".r.findFirstIn(x)    // Some(111)
 "(.)\\1\\1\\1".r.findFirstIn(x) // Some(3333)
 
-val s = "foobarbaz" // fo obarb az -> fo brabo az
-s.slice(0, 1) // f
-s.slice(0, 2)
-s.slice(2, 6 + 1).reverse
-s.slice(6 + 1, s.length)
-val boundaries = "2 6".split(' ').map(_.toInt)
+val s = "123456789"
+s.slice(2, 6)          // 3456
+s.slice(2, 6).reverse  // 6543
 
+def sumRange(from: Int, to: Int): Int =
+  if (to < from) 0
+  else from + sumRange(from + 1, to)
+
+@tailrec
+def sumRange1(from: Int, to: Int, acc: Long = 0): Long =
+  if (to < from) acc
+  else sumRange1(from + 1, to, acc + from)
+sumRange1(1,10000000)
+
+// 0, 1, 1, 2, 3, 5, 8 ..
+@tailrec
+def calcFib(endIndex: Int, currIndex: Int = 1, prevValue: Int = 0, currValue: Int = 1): Int = {
+  if (endIndex == 1) 1
+  else if (currIndex == endIndex) currValue
+  else calcFib(endIndex, currIndex + 1, currValue, prevValue + currValue)
+}
+
+calcFib(1)
+calcFib(2)
+calcFib(3)
+calcFib(4)
+calcFib(5)

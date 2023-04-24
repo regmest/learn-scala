@@ -1,12 +1,31 @@
 package stepik
 
+import scala.annotation.tailrec
+import org.scalameter.api._
+
+
 object Tasks {
+
     def main(args: Array[String]): Unit = {
 
 //      println(normalDistribution(1.0, 1.0, 1.0)) // 0.3989422804014327
 //      println(crispsWeight(90.0, 0.9, 0.1)) // 10.00000
 //      println(isCapital("Scala", 0))
-      println(revertStringPart())
+//      println(revertStringPart())
+//      println(checkSnakeCase())
+
+//      val start = System.nanoTime
+//      println(fibs(50))
+//      println((System.nanoTime - start) / 1e9d)
+//
+//      val start_ = System.nanoTime
+//      println(fibs0(50))
+//      println((System.nanoTime - start_) / 1e9d)
+
+      printTimeAndResult(fibs(45))
+      printTimeAndResult(fibs0(45))
+      wrap(fibs(45))
+      wrap(fibs0(45))
 
     }
 
@@ -18,7 +37,6 @@ object Tasks {
     // potatoWaterRatio: Double  - (0,1), доля воды в картофеле до того, как из него сделали чипсы.
     // crispsWaterRatio: Double - (0,1), доля воды в чипсах.
     // Найдите массу чипсов, которая получится.
-    println(crispsWeight(90.0, 0.9, 0.1)) // 10.00000
     def crispsWeight(weight: BigDecimal, potatoWaterRatio: Double, crispsWaterRatio: Double): BigDecimal = {
       import scala.math.BigDecimal.RoundingMode.HALF_UP
       (weight * (1.0 - potatoWaterRatio) / (1.0 - crispsWaterRatio)).setScale(5, HALF_UP)
@@ -54,6 +72,46 @@ object Tasks {
       val Array(startIndex, endIndex) = StdIn.readLine().split(' ').map(_.toInt)
       val s = StdIn.readLine()
       s.slice(0, startIndex) + s.slice(startIndex, endIndex + 1).reverse + s.slice(endIndex + 1, s.length)
+    }
+
+   // Определить, является ли строка написанной в snake-case стиле:
+   // 1. Строчные латинские буквы и символ подчёркивания
+   // 2. Символ подчёркивания не должен стоять в начале и в конце строки
+   // 3. Два символа подчёркивания не могут стоять рядом
+    def checkSnakeCase(): Boolean = {
+     import scala.io.StdIn.readLine
+     val s = readLine()
+     "[^a-z_]|^_.*|.*_$|__".r.findFirstIn(s).isEmpty
+    }
+
+    // Метод должен возвращать число Фибоначчи по его порядковому номеру.
+    def fibs0(endIndex: Int): Int = { // мое решение (выигрывает по врмемени)
+      @tailrec
+      def calcFib(endIndex: Int, currIndex: Int = 1, prevValue: Int = 0, currValue: Int = 1): Int = {
+        if (endIndex <= 0) 0
+        else if (currIndex == endIndex) currValue
+        else calcFib(endIndex, currIndex + 1, currValue, prevValue + currValue)
+      }
+      calcFib(endIndex)
+    }
+
+    def fibs(index: Int): Int = { // решение из комментариев
+      if (index == 0) 0
+      else if (index == 1 || index == 2) 1
+      else fibs(index - 1) + fibs(index - 2)
+    }
+
+    // функции-таймеры
+    def printTimeAndResult(f: => Any): Unit = {
+      val start = System.nanoTime
+      f
+      println((System.nanoTime - start) / 1e9d)
+    }
+    def wrap[R](f: => R): R = {
+      println("start")
+      val r = f
+      println("end")
+      r
     }
 
 }
