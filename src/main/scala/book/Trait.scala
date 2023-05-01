@@ -13,6 +13,16 @@ object Trait extends App {
     welcome(dog)    // Welcome, Spot!
     // welcome(cat) // error! Cat is not Nameable
 
+
+
+    def exchangeRateUSD(currency: Currency): Double = currency match {
+      case USD => 1
+      case GBP => 0.744
+      case EUR => 0.848
+    }
+    val curr = EUR
+    exchangeRateUSD(curr)
+
 }
 
 trait Animal {   // trait helps to identify an interface
@@ -35,3 +45,21 @@ class Dog(val name: String) extends Animal with Nameable { // extends .. with ..
   def eat(food: String): String = s"$food!!!"
   def move(x: Int, y: Int): String = s"Move to ($x,$y)!"
 }
+
+
+// sealed traits
+// sealed trait can be extended only in the file where it was created
+// сообщаем компилятору, что легитимно наследоваться только в этом файле
+sealed trait Suit // масти карт
+
+object Diamonds extends Suit
+object Hearts extends Suit
+object Spades extends Suit
+object Clubs extends Suit
+// но в другом файле отнаследоваться от Suit было бы нельзя
+
+
+sealed trait Currency
+object USD extends Currency
+object EUR extends Currency
+object GBP extends Currency
