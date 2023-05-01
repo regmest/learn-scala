@@ -22,10 +22,12 @@ object Tasks {
 //      println(fibs0(50))
 //      println((System.nanoTime - start_) / 1e9d)
 
-      printTimeAndResult(fibs(45))
-      printTimeAndResult(fibs0(45))
-      wrap(fibs(45))
-      wrap(fibs0(45))
+//      printTimeAndResult(fibs(45))
+//      printTimeAndResult(fibs0(45))
+//      wrap(fibs(45))
+//      wrap(fibs0(45))
+
+      printCoprimeIntegers()
 
     }
 
@@ -117,6 +119,12 @@ object Tasks {
     // Если элементов четное число, необходимо выбрать элемент с бОльшим порядковым номером.
     def middle[A](data: Iterable[A]): A = {
       data.splitAt(data.size / 2)._2.head
+    }
+
+    def printCoprimeIntegers(): Unit = {
+      import scala.io.StdIn
+      val n: Int = StdIn.readInt()
+      for (i <- 1 until n; j <- 1 until n if BigInt(i).gcd(j) == 1) println(s"$i $j")
     }
 
 }
