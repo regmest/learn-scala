@@ -121,6 +121,8 @@ object Tasks {
       data.splitAt(data.size / 2)._2.head
     }
 
+    // Считайте с клавиатуры число n и выведите на экран все упорядоченные пары взаимно простых чисел
+    // от 1 до n, не включая n, в лексикографическом порядке.
     def printCoprimeIntegers(): Unit = {
       import scala.io.StdIn
       val n: Int = StdIn.readInt()
