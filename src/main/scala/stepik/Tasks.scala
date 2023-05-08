@@ -27,7 +27,15 @@ object Tasks {
 //      wrap(fibs(45))
 //      wrap(fibs0(45))
 
-      printCoprimeIntegers()
+//      printCoprimeIntegers()
+
+//      val pet2 = Pet("kitty","nya")
+//      println(definePet(pet2))
+
+//      val input1 = List("oleg oleg.001_2@email.com", "7bdaf0a1be3", "a8af118b1a2")
+//      val input2 = List("oleg", "oleg@email.com", "7bdaf0a1be3", "a8af118b1a2")
+//      println(getNameAndEmailDomain(input1))
+//      println(getNameAndEmailDomain(input2))
 
     }
 
@@ -127,6 +135,31 @@ object Tasks {
       import scala.io.StdIn
       val n: Int = StdIn.readInt()
       for (i <- 1 until n; j <- 1 until n if BigInt(i).gcd(j) == 1) println(s"$i $j")
+    }
+
+    case class Pet(name: String, says: String)
+    def definePet(pet: Pet): String = {
+      val catSays = "(^meow$|^nya$)".r
+      val robotSays = "(^[01]+$)".r
+      pet match {
+        case Pet("Rex", _) => "dog"
+        case Pet(_, catSays(_)) => "cat"
+        case Pet(_, robotSays(_)) => "robot"
+        case _ => "unknown"
+      }
+    }
+
+    def getNameAndEmailDomain(input: List[String]): String = {
+      val rName = "([a-zA-Z]+)".r
+      val rEmail = "([a-zA-Z0-9_.]+)@(\\w+.\\w+)".r
+      val rNameAndEmail = s"$rName\\s$rEmail".r
+      input match {
+        case List(rNameAndEmail(name, _, domain), _*) => s"$name $domain"
+        case List(rName(name), rEmail(_, domain), _*) => s"$name $domain"
+//        case rNameAndEmail(name, _, domain) :: _ => s"$name $domain"
+//        case rName(name) :: rEmail(_, domain) :: _ => s"$name $domain"
+        case _ => "invalid"
+      }
     }
 
 }

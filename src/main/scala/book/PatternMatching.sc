@@ -56,6 +56,7 @@ exchangeRateUSD(curr)
 case class Address(country: String, city: String)
 def addressInfo(address: Address): String = address match {
   case Address("Russia", "Moscow") => "russian capital"
+  case Address("Russia", "St. Petersburg"|"Kazan") => "russian city St. Petersburg or Kazan"
   case Address("Russia", _) => "russian"
   case Address("Japan", "Tokyo") => "japanese capital"
   case Address("Japan", city) => s"japanese $city"
@@ -119,14 +120,14 @@ readAddress("japan, tokyo")
 val address2 = "(\\w+), (\\w+)".r
 def readAddress(string: String): List[String] = string match {
   // чтобы не перечислять все группы с помощью переменных, можно заматчить элементы с помощью @_*
-  case address2(parts@_*) =>parts.toList
+  case address2(parts@_*) => parts.toList
   case _ => List()
 }
 readAddress("japan, tokyo")
 readAddress("japan, tokyo, street")
 
 // комбинация
-val regex = "(Russia|Japan)".r
+val regex = "(Russia|Japan)".r // you MUST use groups or it won't work
 case class Address(country: String, city: String)
 def getInfo(address: Address): String = address match {
 //  case Address(regex(country), city) => s"$city, $country"
