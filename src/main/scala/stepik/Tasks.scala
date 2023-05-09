@@ -37,6 +37,8 @@ object Tasks {
 //      println(getNameAndEmailDomain(input1))
 //      println(getNameAndEmailDomain(input2))
 
+      println(List(Jar("Морской синий 6л", 6, 3000.0), Jar("Огненно-красный 12л", 12, 5000.0), Jar("Зеленый 1л", 1, 500.0)).collect(discount))
+
     }
 
     def normalDistribution(mu: Double, sigma: Double, x: Double): Double = {
@@ -156,10 +158,18 @@ object Tasks {
       input match {
         case List(rNameAndEmail(name, _, domain), _*) => s"$name $domain"
         case List(rName(name), rEmail(_, domain), _*) => s"$name $domain"
-//        case rNameAndEmail(name, _, domain) :: _ => s"$name $domain"
+//        case rNameAndEmail(name, _, domain) :: _ => s"$name $domain"   // равносильные варианты
 //        case rName(name) :: rEmail(_, domain) :: _ => s"$name $domain"
         case _ => "invalid"
       }
     }
+
+    case class Jar(name: String, value: Int, price: Double)
+    def discount: PartialFunction[Jar, String] = {
+      // case Jar(name, value, price) if value >= 5 => s"$name $value ${if (value >= 5 && value <= 10) price*0.05 else price*0.1}" // мой способ
+      case x if x.value > 10 => s"${x.name} ${x.price * 0.1}" // более красивый чужой
+      case x if x.value >= 5 => s"${x.name} ${x.price * 0.05}"
+    }
+
 
 }

@@ -12,7 +12,7 @@ def sqrtOrValue(n: Int): Double = n match {
 val sqrt:  PartialFunction[Int, Double] = { case x if x >= 0 => Math.sqrt(x) }
 val zero:  PartialFunction[Int, Double] = { case _ => 0 }
 val value: PartialFunction[Int, Double] = { case x => x }
-
+// пересобираем функции с помощью partial functions
 def sqrtOrZeroNew(n: Int): Double = sqrt.orElse(zero)(n)
 def sqrtOrValueNew(n: Int): Double = sqrt.orElse(value)(n)
 
@@ -21,7 +21,7 @@ sqrtOrZeroNew(-5)
 sqrtOrValue(-5)
 sqrtOrValueNew(-5)
 
-
+// исключения тоже относятся к partial functions
 class MyException(msg: String) extends Exception(msg)
 //throw new MyException("BOOM!")
 
@@ -45,3 +45,22 @@ val isHello = try {
   false
 }
 isHello
+
+
+// Stepik
+// еще пример partial function на Stepik
+val divide10: PartialFunction[Int, Int] = {
+  case 1 => 10
+  case 2 => 5
+  case 5 => 2
+  case 10 => 1
+}
+// с помощью метода isDefinedAt определяем, для каких значений partial function
+// divide10 определена, а для каких нет (т.е. был бы Match Error)
+divide10.isDefinedAt(2) // true
+divide10.isDefinedAt(3) // false
+
+// часто partial functions используются с методами, например collect
+// если результат есть - сложит в коллекцию
+List.range(1,11)                    // List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+List.range(1,11).collect(divide10)  // List(10, 5, 2, 1)
