@@ -1,7 +1,6 @@
 package stepik
 
 import scala.annotation.tailrec
-import org.scalameter.api._
 
 
 object Tasks {

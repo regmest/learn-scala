@@ -27,7 +27,14 @@ scalacOptions += "-Xfatal-warnings" // compilter will consider warnings as compi
 // You can define other libraries as dependencies in your build like this:
 
 // libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
-libraryDependencies += "org.typelevel" %% "cats" % "2.2.0"
+//libraryDependencies += "org.typelevel" %% "cats" % "2.2.0"
+
+val Http4sVersion = "0.22.0"
+libraryDependencies ++= List(
+  "org.http4s"      %% "http4s-blaze-server" % Http4sVersion,
+  "org.http4s"      %% "http4s-dsl"          % Http4sVersion,
+  "ch.qos.logback"  %  "logback-classic"     % "1.2.3"
+)
 
 // Here, `libraryDependencies` is a set of dependencies, and by using `+=`,
 // we're adding the scala-parser-combinators dependency to the set of dependencies
