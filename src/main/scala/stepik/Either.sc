@@ -17,6 +17,8 @@ info(numOrString2) // val res1: String = string scala
 def sqrt(x: Double): Either[String, Double] =
   if(x < 0) Left("negative number") // сообщение о проблеме
   else Right(Math.sqrt(x))
+sqrt(4)  // Right(2.0)
+sqrt(-1) // Left(negative number)
 
 // работать с Right можно например так:
 // подмена Right на дефолтное значение
@@ -24,7 +26,7 @@ sqrt(4).getOrElse(0)     // val res2: AnyVal = 2.0
 sqrt(-1).getOrElse(0)    // val res3: AnyVal = 0  // в случ ошибки подменяем на дефолтное значение
 
 // фильтрация предикатом
-// выплевывает left, если right не прошло фильр; если изначально был Right - выплюнет его
+// выплевывает left, если right не прошло фильр; если изначально был Left - выплюнет его
 sqrt(9).filterOrElse(_ > 2, "too small")  // Right(3.0)
 sqrt(4).filterOrElse(_ > 2, "too small")  // Left(too small)
 sqrt(-1).filterOrElse(_ > 2, "too small") // Left(negative number)
@@ -38,6 +40,8 @@ sqrt(-1).map(_.toString)  // Either[String,String] = Left(negative number)
 sqrt(4).flatMap(x => sqrt(x))    // Either[String,Double] = Right(1.4142135623730951)
 sqrt(4).flatMap(x => sqrt(-1))   // Either[String,Double] = Left(negative number)
 sqrt(-1).flatMap(x => sqrt(x))   // Either[String,Double] = Left(negative number)
+
 // Метод flatMap действует до первого-Left
 Right(1).flatMap(_ => Right(2)).flatMap(_ => Right(3)) // ok, Either[Nothing,Int] = Right(3)
 //Right(1).flatMap(_ => Left(2)).flatMap(_ => Left(3))   // Either[Int,Nothing] = Left(2), не Left(3) как ожидалось
+

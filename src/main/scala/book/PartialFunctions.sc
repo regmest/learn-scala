@@ -27,12 +27,17 @@ class MyException(msg: String) extends Exception(msg)
 
 def n(): Int = {
   try {
+    println("THROW EXCEPTION")
     throw new Exception("BOOM!")
     42
-  } catch {
+  }
+  catch { // w/o catch all code just fails; w catch code doesn't fail, just prints "Ignoring ..."
     case ex: Exception =>
       println(s"Ignoring exception $ex. Returning zero instead.")
       0
+  }
+  finally {
+    println("FINALLY")
   }
 }
 val v = n()

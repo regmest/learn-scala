@@ -21,12 +21,14 @@ sumInts(123, 32) // 12332  // (123.toString + 32.toString).toInt
 def calc42M: (Int => Int) => Int = f => f(42_000_000)
 def calc42M[A]: (Int => A) => A = f => f(42_000_000)
 calc42M(_.toString) // "42000000"
+
 // хотим посчитать сумму от 1 до 42_000_000
 // напишем рекурсивную функцию в обобщенном виде
 import scala.annotation.tailrec
 def tailRec[A, B](iter_value: A => A,
                   iter_acc: (B, A) => B,
-                  cond: A => Boolean)(start: A, init: B): B = {
+                  cond: A => Boolean
+                 )(start: A, init: B): B = {
   @tailrec
   def go(x: A, acc: B): B = {
     if(cond(x)) go(iter_value(x), iter_acc(acc, x)) // если условие выполняется, итерируем дальше
@@ -38,7 +40,7 @@ def tailRec[A, B](iter_value: A => A,
 calc42M(n => tailRec[Int, Long](_ - 1, _ + _, _ >= 0)(n, 0))
 
 
-
+// функция для любого итерабельного типа
 def middle[A](data: Iterable[A]): A = {
   data.splitAt(data.size / 2)._2.head
 }

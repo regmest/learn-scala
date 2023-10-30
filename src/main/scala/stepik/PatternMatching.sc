@@ -88,9 +88,9 @@ def sum(xs: List[Int], start: Int = 0): Int = xs match {
   case List() => start
   case List(x, rest@_*) => sum(rest.toList, start + x)
 }
-
 sum(List(1,2,3,4))
-// можно использовать не только для списка
+
+// конструкцию можно использовать не только для списка
 def sum(xs: Seq[Int], start: Int = 0): Int = xs match {
   case Seq() => start
   case Seq(x, rest@_*) => sum(rest, start + x)

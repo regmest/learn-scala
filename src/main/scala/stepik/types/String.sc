@@ -8,6 +8,7 @@ val word = "Scala"
 val pos = 0
 word(pos) >= 'A' && word(pos) <= 'Z' // is in upper case?
 for (i <- 65 to 90) println(i.toChar) // all upper case chars
+// A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
 "Scala".exists(_.isUpper) // has "Scala" an upper case char?
 
@@ -18,14 +19,14 @@ name startsWith "Ol"
 name endsWith "eg"
 name contains "a"
 
-name.matches("O.*g")
+name.matches("O.*g") // true
 
-2.toString
-2.0.toString
-true.toString
+2.toString    // String = 2
+2.0.toString  // String = 2.0
+true.toString // String = true
 
-2 + "string"
-true + "string"
+2 + "string"    // String = 2string
+true + "string" // String = truestring
 
 val s =
   """
