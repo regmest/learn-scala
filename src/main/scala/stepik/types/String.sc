@@ -47,3 +47,7 @@ val s = "123456789"
 s.slice(2, 6)          // 3456
 s.slice(2, 6).reverse  // 6543
 
+val schemaTable = "schema.table".split("\\.")
+schemaTable(0)
+schemaTable(1)
+
