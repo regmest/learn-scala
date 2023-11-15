@@ -1,4 +1,5 @@
 import scala.annotation.tailrec
+import scala.io.StdIn
 // Виды коллекций:
 // ---------------
 //    - immutable (List[+A], Stream[+A], Vector[+A], Set[+A], Map[K, +V]) - import scala.collection.immutable._
@@ -126,7 +127,15 @@ def mergeSort(as: List[Int]): List[Int] =
 mergeSort(List(2,5,7,1,4)) // List(1, 2, 4, 5, 7)
 mergeSort(randomList) == randomList.sorted // true; проверили для более длинном списке
 
+
+// разделить список на два фильтром
 val ints: List[Int] = List(0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0)
 val (zeros, ones) = ints.partition(_ == 0) // A pair of, first, all elements that satisfy predicate p and, second, all elements that do not. Splits a collection in two.
 zeros.mkString(",") // 0,0,0,0,0,0
 ones.mkString(",")  // 1,1,1,1,1,1,1
+
+
+// Выделить slice
+val ints: List[Int] = List(0,1,2,3,4,5)
+ints.slice(2,3) // List(2)
+ints.slice(0,2) // List(0, 1)
