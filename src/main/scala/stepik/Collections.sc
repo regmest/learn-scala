@@ -78,6 +78,95 @@ str.mkString(" ") // String = scala + stepik = love
 val list = List(2,5,7,1,4)
 list.sorted // List(1, 2, 4, 5, 7)
 
+val vector = Vector(1,2,3,2)
+val stream = Stream(1,2,3,2)
+val set = Set(1,2,3,2)
+val map = Map("Москва" -> 12e6, "Питер" -> 5e6)
+
+
+// Для всех последовательностей добавить слева +:, добавить справа :+
+val phrase1 = Vector("+")
+val phrase2 = phrase1 :+ "Stepik"     // Vector(+, Stepik)
+val phrase3 = "Scala" +: phrase2      // Vector(Scala, +, Stepik)
+val phrase4 = Stream.empty[String]    // Stream()
+val phrase5 = phrase4 :+ "=" :+ "<3"   // Stream(=, <not computed>)
+val phrase = phrase3 ++ phrase5       // Vector(Scala, +, Stepik, =, <3) - сконкатенировать коллекции
+println(phrase.mkString(" "))         // Scala + Stepik = <3
+
+
+// Добавит элемент в неупорядоченную коллекцию
+val cities1 = Map("Питер" -> 5e6, ("Москва", 12e6)) // Map(Питер -> 5000000.0, Москва -> 1.2E7)
+val cities2 = cities1 + ("Волгоград" -> 1e6)  // Map(Питер -> 5000000.0, Москва -> 1.2E7, Волгоград -> 1000000.0)
+val cities3 = List("Ростов-на-Дону" -> 1e6)  // List((Ростов-на-Дону,1000000.0))
+val cities4 = cities2 ++ cities3  // Map(Питер -> 5000000.0, Москва -> 1.2E7, Волгоград -> 1000000.0, Ростов-на-Дону -> 1000000.0)
+
+
+val cities = Vector("Москва", "Волгоград", "Питер")
+cities(1)    // Волгоград
+cities.head  // Москва
+cities.last  // Питер
+cities.size  // 3
+cities.contains("Москва")  // true
+cities.indices  // Range 0 until 3 - список валидных индексов
+
+
+val cityMap = Map("Питер" -> 5e6, "Волгоград" -> 1e6, ("Москва", 12e6))
+cityMap.size                        // 2
+cityMap.keySet                      // Set(Питер, Волгоград, Москва)
+cityMap("Питер")                    // 5000000.0
+//cityMap("ТакогоГородаНет")        // !!! java.util.NoSuchElementException: key not found: ТакогоГородаНет
+cityMap.get("ТакогоГородаНет")      // None
+cityMap.contains("ТакогоГородаНет") // false
+cityMap - "Питер"                   // Map(Волгоград -> 1000000.0, Москва -> 1.2E7)
+cityMap -- List("Москва", "Волгоград") // Map(Питер -> 5000000.0)
+cityMap                             // Map(Питер -> 5000000.0, Волгоград -> 1000000.0, Москва -> 1.2E7)
+
+
+val citySet = Set("Москва", "Волгоград", "Питер")
+citySet("Волгоград")                // true
+citySet("ТакогоГородаНет")          // false
+citySet.contains("ТакогоГородаНет") // false
+citySet - "Питер"                   // Set(Москва, Волгоград)
+citySet -- List("Москва", "Волгоград") // Set(Питер)
+citySet                             // Set(Москва, Волгоград, Питер)
+
+
+val nums = Vector.range(1,11) // Vector(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+nums.slice(3,7)               //          Vector(4, 5, 6, 7)
+nums.tail                     //    Vector(2, 3, 4, 5, 6, 7, 8, 9, 10)
+nums.init                     // Vector(1, 2, 3, 4, 5, 6, 7, 8, 9)
+nums.take(3)                  // Vector(1, 2, 3)
+nums.drop(3)                  //          Vector(4, 5, 6, 7, 8, 9, 10)
+nums.takeRight(3)             //                      Vector(8, 9, 10)
+nums.dropRight(3)             // Vector(1, 2, 3, 4, 5, 6, 7)
+val odds = nums.filter(_ % 2 == 1)        // Vector(1, 3, 5, 7, 9)
+val evens = nums.filterNot(_ % 2 == 1)    // Vector(2, 4, 6, 8, 10)
+val (odds1, evens1) = nums.partition(_ % 2 == 1)  // Vector(1, 3, 5, 7, 9), Vector(2, 4, 6, 8, 10)
+val small = nums.takeWhile(_ < 5)         // Vector(1, 2, 3, 4)
+val big = nums.dropWhile(_ < 5)           // Vector(5, 6, 7, 8, 9, 10)
+val (small1, big1) = nums.span(_ < 5)     // Vector(1, 2, 3, 4), Vector(5, 6, 7, 8, 9, 10)
+
+
+val nums = List.range(0,10)           // List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+val alpha = 'A' to 'Z'                // NumericRange A to Z
+val nums2 = nums.map(i => alpha(i))   // List(A, B, C, D, E, F, G, H, I, J)
+val nums2 = nums.map(alpha)           // List(A, B, C, D, E, F, G, H, I, J)
+
+
+val nums: List[Int] = List.range(0,10)
+val alpha = 'A' to 'Z'
+// метод collect может одновременно делать и фильтрацию и mapping с помощью частичной функции
+val charList: List[Char] = nums.collect{
+  case i if i % 2 == 0 => alpha(i / 2 * 3)
+  case 3 => '_'
+  case 5|7 => '!'
+} // List(A, D, _, G, !, J, !, M)
+val charLists: List[List[Char]] = nums.map(i => List(alpha(i), alpha(i + 3))) // List(List(A, D), List(B, E), List(C, F), List(D, G) ...
+val charList: List[Char] = charLists.flatten  //  List(A, D, B, E, C, F, D, G, E, H, F, I, G, J, H, K, I, L, J, M)
+// flatMap объединяет в себе map и flatten (т.е. сначала список списков, затем уплощение)
+val chars: List[Char] = nums.flatMap(i => List(alpha(i), alpha(i + 3)))  // List(A, D, B, E, C, F, D, G, E, H, F, I, G, J, H, K, I, L, J, M)
+
+
 // Добавить элемент/коллекцию
 0 :: List(1,2,3) == 0 +: List(1,2,3)  // true; добавить элемент в начало списка
 // со списком можно работать и с `::`, и с `+:` - `+:` рабоатет для всех сиквенсов, более универсален
