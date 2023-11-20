@@ -36,7 +36,14 @@ object Tasks {
 //      println(getNameAndEmailDomain(input1))
 //      println(getNameAndEmailDomain(input2))
 
-      println(List(Jar("Морской синий 6л", 6, 3000.0), Jar("Огненно-красный 12л", 12, 5000.0), Jar("Зеленый 1л", 1, 500.0)).collect(discount))
+//      println(List(Jar("Морской синий 6л", 6, 3000.0), Jar("Огненно-красный 12л", 12, 5000.0), Jar("Зеленый 1л", 1, 500.0)).collect(discount))
+
+
+      println(isPrime(7)) // true
+      println(isPrime(21)) // false
+      println(primes.take(50)) // Stream(2, <not computed>) - не вычисляется, тк ленивый
+      println(primes.take(50).force) // заставляем вычислиться. Также напр могли привести к isList // Stream(2, 3, 5, 7, 11, 13, 17, 19, 23 ...
+
 
     }
 
@@ -170,5 +177,14 @@ object Tasks {
       case x if x.value >= 5 => s"${x.name} ${x.price * 0.05}"
     }
 
+  // функиця определения является ли число простым (делим это число на все числа меньше его)
+  def isPrime(x: Long): Boolean =
+  //  LazyList.from(2) // начинаем с 2, тк на 1 любое число делится без остатка
+    primes
+      .takeWhile(p => p * p <= x) // создаем ленивый список; используем ограничение, что квадрат делителя по логике должен быть меньше делимого
+      .forall(x % _ != 0) // проверяем для всех этих чисел, что x НЕ делится без остатка
+  // формируем ленивый список всех простых чисел; #:: - оператор ленивой конкатенации
+  // нам обязательно знать хотя бы 1 элемент, поэтому зафиксировали 2-ку
+  lazy val primes: LazyList[Long] = 2L #:: LazyList.iterate(3L)(_ + 2L).filter(isPrime)
 
 }
