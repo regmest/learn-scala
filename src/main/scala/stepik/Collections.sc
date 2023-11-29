@@ -539,3 +539,26 @@ Stream("28", "40", "9", "61")
 // .reduce((a, b) => a + b) // <-- альтернатива sum
 //  .reduce{case (a: Int, b: Int) => a + b} // <-- альтернатива sum
 )
+
+
+// Свопать списки по номеру элемента
+val points: List[Int] = List(1,3) // точки кроссинговера
+val chr1: List[Char] = List('x','x','x','x','x') // первая хромосома
+val chr2: List[Char] = List('y','y','y','y','y') // вторая хромосома
+
+@tailrec // рекурсия на замена loop-у for(p <- points)
+def crossover[T](points: List[Int], xList: List[T], yList: List[T]): (List[T], List[T]) =
+  points match {
+    case Nil => (xList, yList)
+    case p :: rest => // берем первый элемент из points
+      val (x1, x2) = xList.splitAt(p)
+      val (y1, y2) = yList.splitAt(p)
+      val (newX, newY) = (x1 ++ y2, y1 ++ x2)
+      println(newX.mkString(""), newY.mkString("")) // (xyyyy,yxxxx); (xyyxx,yxxyy)
+      crossover(rest, newX, newY) // отправляем повторяться для следующего элемента
+  }
+
+val (res1, res2) = crossover(points, chr1, chr2)
+println(res1.mkString("")) // xyyxx
+println(res2.mkString("")) // yxxyy
+
